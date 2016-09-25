@@ -1,0 +1,1 @@
+--disable-network-manager --disable-smartcard-support --disable-schemas-compile --disable-cups

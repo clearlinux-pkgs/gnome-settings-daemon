@@ -1,0 +1,150 @@
+--- gnome-settings-daemon-3.22.0/configure~	2016-09-20 09:22:56.000000000 +0000
++++ gnome-settings-daemon-3.22.0/configure	2016-09-25 13:35:20.860233213 +0000
+@@ -20521,134 +20521,6 @@
+ 
+ 
+ 
+-pkg_failed=no
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for DATETIME" >&5
+-$as_echo_n "checking for DATETIME... " >&6; }
+-
+-if test -n "$DATETIME_CFLAGS"; then
+-    pkg_cv_DATETIME_CFLAGS="$DATETIME_CFLAGS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libgeoclue-2.0 >= \$GEOCLUE_REQUIRED_VERSION
+-	geocode-glib-1.0 >= \$GEOCODE_GLIB_REQUIRED_VERSION
+-	gweather-3.0 >= \$LIBGWEATHER_REQUIRED_VERSION
+-	polkit-gobject-1 >= \$POLKIT_REQUIRED_VERSION
+-\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libgeoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
+-	geocode-glib-1.0 >= $GEOCODE_GLIB_REQUIRED_VERSION
+-	gweather-3.0 >= $LIBGWEATHER_REQUIRED_VERSION
+-	polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
+-") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_DATETIME_CFLAGS=`$PKG_CONFIG --cflags "libgeoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
+-	geocode-glib-1.0 >= $GEOCODE_GLIB_REQUIRED_VERSION
+-	gweather-3.0 >= $LIBGWEATHER_REQUIRED_VERSION
+-	polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
+-" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-if test -n "$DATETIME_LIBS"; then
+-    pkg_cv_DATETIME_LIBS="$DATETIME_LIBS"
+- elif test -n "$PKG_CONFIG"; then
+-    if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libgeoclue-2.0 >= \$GEOCLUE_REQUIRED_VERSION
+-	geocode-glib-1.0 >= \$GEOCODE_GLIB_REQUIRED_VERSION
+-	gweather-3.0 >= \$LIBGWEATHER_REQUIRED_VERSION
+-	polkit-gobject-1 >= \$POLKIT_REQUIRED_VERSION
+-\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "libgeoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
+-	geocode-glib-1.0 >= $GEOCODE_GLIB_REQUIRED_VERSION
+-	gweather-3.0 >= $LIBGWEATHER_REQUIRED_VERSION
+-	polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
+-") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_DATETIME_LIBS=`$PKG_CONFIG --libs "libgeoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
+-	geocode-glib-1.0 >= $GEOCODE_GLIB_REQUIRED_VERSION
+-	gweather-3.0 >= $LIBGWEATHER_REQUIRED_VERSION
+-	polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
+-" 2>/dev/null`
+-		      test "x$?" != "x0" && pkg_failed=yes
+-else
+-  pkg_failed=yes
+-fi
+- else
+-    pkg_failed=untried
+-fi
+-
+-
+-
+-if test $pkg_failed = yes; then
+-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+-        _pkg_short_errors_supported=yes
+-else
+-        _pkg_short_errors_supported=no
+-fi
+-        if test $_pkg_short_errors_supported = yes; then
+-	        DATETIME_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libgeoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
+-	geocode-glib-1.0 >= $GEOCODE_GLIB_REQUIRED_VERSION
+-	gweather-3.0 >= $LIBGWEATHER_REQUIRED_VERSION
+-	polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
+-" 2>&1`
+-        else
+-	        DATETIME_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libgeoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
+-	geocode-glib-1.0 >= $GEOCODE_GLIB_REQUIRED_VERSION
+-	gweather-3.0 >= $LIBGWEATHER_REQUIRED_VERSION
+-	polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
+-" 2>&1`
+-        fi
+-	# Put the nasty error message in config.log where it belongs
+-	echo "$DATETIME_PKG_ERRORS" >&5
+-
+-	as_fn_error $? "Package requirements (libgeoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
+-	geocode-glib-1.0 >= $GEOCODE_GLIB_REQUIRED_VERSION
+-	gweather-3.0 >= $LIBGWEATHER_REQUIRED_VERSION
+-	polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
+-) were not met:
+-
+-$DATETIME_PKG_ERRORS
+-
+-Consider adjusting the PKG_CONFIG_PATH environment variable if you
+-installed software in a non-standard prefix.
+-
+-Alternatively, you may set the environment variables DATETIME_CFLAGS
+-and DATETIME_LIBS to avoid the need to call pkg-config.
+-See the pkg-config man page for more details." "$LINENO" 5
+-elif test $pkg_failed = untried; then
+-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
+-is in your PATH or set the PKG_CONFIG environment variable to the full
+-path to pkg-config.
+-
+-Alternatively, you may set the environment variables DATETIME_CFLAGS
+-and DATETIME_LIBS to avoid the need to call pkg-config.
+-See the pkg-config man page for more details.
+-
+-To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+-See \`config.log' for more details" "$LINENO" 5; }
+-else
+-	DATETIME_CFLAGS=$pkg_cv_DATETIME_CFLAGS
+-	DATETIME_LIBS=$pkg_cv_DATETIME_LIBS
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-
+-fi
+-
+-
+ case $host_os in
+   linux*)
+     if test "$host_cpu" = s390 -o "$host_cpu" = s390x; then
+--- gnome-settings-daemon-3.22.0/plugins/Makefile.in~	2016-09-20 09:22:57.000000000 +0000
++++ gnome-settings-daemon-3.22.0/plugins/Makefile.in	2016-09-25 13:35:59.504764757 +0000
+@@ -414,7 +414,7 @@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ NULL = 
+-enabled_plugins = a11y-keyboard a11y-settings clipboard color datetime \
++enabled_plugins = a11y-keyboard a11y-settings clipboard color  \
+ 	dummy power housekeeping keyboard media-keys mouse orientation \
+ 	screensaver-proxy sharing sound xrandr xsettings $(NULL) \
+ 	$(am__append_1) $(am__append_3) $(am__append_5) \
+
+
