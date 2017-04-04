@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.24.0
-Release  : 3
+Release  : 4
 URL      : http://ftp.gnome.org/pub/gnome/sources/gnome-settings-daemon/3.24/gnome-settings-daemon-3.24.0.tar.xz
 Source0  : http://ftp.gnome.org/pub/gnome/sources/gnome-settings-daemon/3.24/gnome-settings-daemon-3.24.0.tar.xz
 Summary  : gnome-settings-daemon specific enumerations
@@ -54,7 +54,8 @@ BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(xorg-wacom)
 BuildRequires : pkgconfig(xtst)
 BuildRequires : sed
-Patch1: build.patch
+Patch1: 0001-Disable-use-of-unsupported-plugins-which-use-geoclue.patch
+Patch2: 0002-plugins-Use-usr-share-xdg-autostart-for-stateless-co.patch
 
 %description
 
@@ -118,10 +119,11 @@ locales components for the gnome-settings-daemon package.
 %prep
 %setup -q -n gnome-settings-daemon-3.24.0
 %patch1 -p1
+%patch2 -p1
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1491239571
+export SOURCE_DATE_EPOCH=1491301578
 %reconfigure --disable-static --disable-network-manager --disable-smartcard-support --disable-schemas-compile --disable-cups
 make V=1  %{?_smp_mflags}
 
@@ -133,7 +135,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1491239571
+export SOURCE_DATE_EPOCH=1491301578
 rm -rf %{buildroot}
 %make_install
 %find_lang gnome-settings-daemon
@@ -191,6 +193,24 @@ rm -rf %{buildroot}
 /usr/share/icons/hicolor/scalable/apps/gsd-xrandr.svg
 /usr/share/polkit-1/actions/org.gnome.settings-daemon.plugins.power.policy
 /usr/share/polkit-1/actions/org.gnome.settings-daemon.plugins.wacom.policy
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.A11yKeyboard.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.A11ySettings.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Clipboard.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Housekeeping.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Keyboard.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.MediaKeys.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Mouse.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Orientation.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Power.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.PrintNotifications.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Rfkill.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.ScreensaverProxy.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Sharing.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Smartcard.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Sound.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Wacom.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.XRANDR.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.XSettings.desktop
 
 %files dev
 %defattr(-,root,root,-)
