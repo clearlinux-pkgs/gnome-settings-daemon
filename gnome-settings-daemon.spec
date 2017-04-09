@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.24.0
-Release  : 5
+Release  : 6
 URL      : http://ftp.gnome.org/pub/gnome/sources/gnome-settings-daemon/3.24/gnome-settings-daemon-3.24.0.tar.xz
 Source0  : http://ftp.gnome.org/pub/gnome/sources/gnome-settings-daemon/3.24/gnome-settings-daemon-3.24.0.tar.xz
 Summary  : gnome-settings-daemon specific enumerations
@@ -32,6 +32,7 @@ BuildRequires : pkg-config-dev
 BuildRequires : pkgconfig(alsa)
 BuildRequires : pkgconfig(colord)
 BuildRequires : pkgconfig(fontconfig)
+BuildRequires : pkgconfig(geocode-glib-1.0)
 BuildRequires : pkgconfig(gio-2.0)
 BuildRequires : pkgconfig(gio-unix-2.0)
 BuildRequires : pkgconfig(glib-2.0)
@@ -41,21 +42,23 @@ BuildRequires : pkgconfig(gsettings-desktop-schemas)
 BuildRequires : pkgconfig(gtk+-3.0)
 BuildRequires : pkgconfig(gtk+-x11-3.0)
 BuildRequires : pkgconfig(gudev-1.0)
+BuildRequires : pkgconfig(gweather-3.0)
 BuildRequires : pkgconfig(libcanberra-gtk3)
+BuildRequires : pkgconfig(libgeoclue-2.0)
 BuildRequires : pkgconfig(libnotify)
 BuildRequires : pkgconfig(libpulse)
 BuildRequires : pkgconfig(librsvg-2.0)
 BuildRequires : pkgconfig(libwacom)
 BuildRequires : pkgconfig(nss)
 BuildRequires : pkgconfig(pango)
+BuildRequires : pkgconfig(polkit-gobject-1)
 BuildRequires : pkgconfig(upower-glib)
 BuildRequires : pkgconfig(wayland-client)
 BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(xorg-wacom)
 BuildRequires : pkgconfig(xtst)
 BuildRequires : sed
-Patch1: 0001-Disable-use-of-unsupported-plugins-which-use-geoclue.patch
-Patch2: 0002-plugins-Use-usr-share-xdg-autostart-for-stateless-co.patch
+Patch1: 0002-plugins-Use-usr-share-xdg-autostart-for-stateless-co.patch
 
 %description
 
@@ -119,11 +122,10 @@ locales components for the gnome-settings-daemon package.
 %prep
 %setup -q -n gnome-settings-daemon-3.24.0
 %patch1 -p1
-%patch2 -p1
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1491490653
+export SOURCE_DATE_EPOCH=1491755705
 %reconfigure --disable-static --disable-network-manager --disable-smartcard-support --disable-schemas-compile --disable-cups
 make V=1  %{?_smp_mflags}
 
@@ -135,7 +137,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1491490653
+export SOURCE_DATE_EPOCH=1491755705
 rm -rf %{buildroot}
 %make_install
 %find_lang gnome-settings-daemon
@@ -149,6 +151,8 @@ rm -rf %{buildroot}
 /usr/libexec/gsd-a11y-settings
 /usr/libexec/gsd-backlight-helper
 /usr/libexec/gsd-clipboard
+/usr/libexec/gsd-color
+/usr/libexec/gsd-datetime
 /usr/libexec/gsd-dummy
 /usr/libexec/gsd-housekeeping
 /usr/libexec/gsd-keyboard
@@ -186,6 +190,7 @@ rm -rf %{buildroot}
 /usr/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.sharing.gschema.xml
 /usr/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.xrandr.gschema.xml
 /usr/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.xsettings.gschema.xml
+/usr/share/gnome-settings-daemon/datetime/backward
 /usr/share/icons/hicolor/16x16/apps/gsd-xrandr.png
 /usr/share/icons/hicolor/22x22/apps/gsd-xrandr.png
 /usr/share/icons/hicolor/24x24/apps/gsd-xrandr.png
@@ -196,6 +201,8 @@ rm -rf %{buildroot}
 /usr/share/xdg/autostart/org.gnome.SettingsDaemon.A11yKeyboard.desktop
 /usr/share/xdg/autostart/org.gnome.SettingsDaemon.A11ySettings.desktop
 /usr/share/xdg/autostart/org.gnome.SettingsDaemon.Clipboard.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Color.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Datetime.desktop
 /usr/share/xdg/autostart/org.gnome.SettingsDaemon.Housekeeping.desktop
 /usr/share/xdg/autostart/org.gnome.SettingsDaemon.Keyboard.desktop
 /usr/share/xdg/autostart/org.gnome.SettingsDaemon.MediaKeys.desktop
