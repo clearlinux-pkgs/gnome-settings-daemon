@@ -6,3 +6,5 @@ xorg-wacom
 libgeoclue-2.0
 geocode-glib-1.0
 gweather-3.0
+polkit-gobject-1
+upower-glib

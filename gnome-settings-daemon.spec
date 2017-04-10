@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.24.0
-Release  : 7
+Release  : 8
 URL      : http://ftp.gnome.org/pub/gnome/sources/gnome-settings-daemon/3.24/gnome-settings-daemon-3.24.0.tar.xz
 Source0  : http://ftp.gnome.org/pub/gnome/sources/gnome-settings-daemon/3.24/gnome-settings-daemon-3.24.0.tar.xz
 Summary  : gnome-settings-daemon specific enumerations
@@ -59,6 +59,7 @@ BuildRequires : pkgconfig(xorg-wacom)
 BuildRequires : pkgconfig(xtst)
 BuildRequires : sed
 Patch1: 0002-plugins-Use-usr-share-xdg-autostart-for-stateless-co.patch
+Patch2: add_hidden.patch
 
 %description
 
@@ -122,14 +123,18 @@ locales components for the gnome-settings-daemon package.
 %prep
 %setup -q -n gnome-settings-daemon-3.24.0
 %patch1 -p1
+%patch2 -p1
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1491775353
-export CFLAGS="$CFLAGS -Os -ffunction-sections "
-export FCFLAGS="$CFLAGS -Os -ffunction-sections "
-export FFLAGS="$CFLAGS -Os -ffunction-sections "
-export CXXFLAGS="$CXXFLAGS -Os -ffunction-sections "
+export SOURCE_DATE_EPOCH=1491784243
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -Os -ffat-lto-objects -ffunction-sections -flto "
+export FCFLAGS="$CFLAGS -O3 -Os -ffat-lto-objects -ffunction-sections -flto "
+export FFLAGS="$CFLAGS -O3 -Os -ffat-lto-objects -ffunction-sections -flto "
+export CXXFLAGS="$CXXFLAGS -O3 -Os -ffat-lto-objects -ffunction-sections -flto "
 %reconfigure --disable-static --disable-network-manager --disable-smartcard-support --disable-schemas-compile --disable-cups
 make V=1  %{?_smp_mflags}
 
@@ -141,7 +146,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1491775353
+export SOURCE_DATE_EPOCH=1491784243
 rm -rf %{buildroot}
 %make_install
 %find_lang gnome-settings-daemon
