@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.24.1
-Release  : 9
+Release  : 10
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/3.24/gnome-settings-daemon-3.24.1.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/3.24/gnome-settings-daemon-3.24.1.tar.xz
 Summary  : gnome-settings-daemon specific enumerations
@@ -127,14 +127,14 @@ locales components for the gnome-settings-daemon package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1492029875
+export SOURCE_DATE_EPOCH=1492279314
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Os -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -O3 -Os -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -O3 -Os -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -O3 -Os -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
 %reconfigure --disable-static --disable-network-manager --disable-smartcard-support --disable-schemas-compile --disable-cups
 make V=1  %{?_smp_mflags}
 
@@ -146,7 +146,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1492029875
+export SOURCE_DATE_EPOCH=1492279314
 rm -rf %{buildroot}
 %make_install
 %find_lang gnome-settings-daemon
