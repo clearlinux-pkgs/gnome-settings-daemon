@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.24.1
-Release  : 10
+Release  : 11
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/3.24/gnome-settings-daemon-3.24.1.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/3.24/gnome-settings-daemon-3.24.1.tar.xz
 Summary  : gnome-settings-daemon specific enumerations
@@ -17,11 +17,14 @@ Requires: gnome-settings-daemon-data
 Requires: gnome-settings-daemon-locales
 BuildRequires : automake
 BuildRequires : automake-dev
+BuildRequires : cups-dev
 BuildRequires : docbook-xml
+BuildRequires : e2fsprogs-dev
 BuildRequires : gettext
 BuildRequires : gettext-bin
 BuildRequires : intltool
 BuildRequires : itstool
+BuildRequires : krb5-dev
 BuildRequires : libtool
 BuildRequires : libtool-dev
 BuildRequires : libwacom-dev
@@ -45,6 +48,7 @@ BuildRequires : pkgconfig(gudev-1.0)
 BuildRequires : pkgconfig(gweather-3.0)
 BuildRequires : pkgconfig(libcanberra-gtk3)
 BuildRequires : pkgconfig(libgeoclue-2.0)
+BuildRequires : pkgconfig(libnm)
 BuildRequires : pkgconfig(libnotify)
 BuildRequires : pkgconfig(libpulse)
 BuildRequires : pkgconfig(librsvg-2.0)
@@ -126,8 +130,11 @@ locales components for the gnome-settings-daemon package.
 %patch2 -p1
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1492279314
+export SOURCE_DATE_EPOCH=1493300402
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -135,18 +142,18 @@ export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sect
 export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
 export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
-%reconfigure --disable-static --disable-network-manager --disable-smartcard-support --disable-schemas-compile --disable-cups
+%reconfigure --disable-static --disable-smartcard-support --disable-schemas-compile
 make V=1  %{?_smp_mflags}
 
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1492279314
+export SOURCE_DATE_EPOCH=1493300402
 rm -rf %{buildroot}
 %make_install
 %find_lang gnome-settings-daemon
@@ -170,6 +177,8 @@ rm -rf %{buildroot}
 /usr/libexec/gsd-mouse
 /usr/libexec/gsd-orientation
 /usr/libexec/gsd-power
+/usr/libexec/gsd-print-notifications
+/usr/libexec/gsd-printer
 /usr/libexec/gsd-rfkill
 /usr/libexec/gsd-screensaver-proxy
 /usr/libexec/gsd-sharing

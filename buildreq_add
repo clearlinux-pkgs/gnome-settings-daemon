@@ -5,3 +5,6 @@ intltool
 libxslt-bin
 libwacom-dev
 docbook-xml
+cups-dev
+krb5-dev
+e2fsprogs-dev
