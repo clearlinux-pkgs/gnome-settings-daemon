@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.24.1
-Release  : 11
+Release  : 12
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/3.24/gnome-settings-daemon-3.24.1.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/3.24/gnome-settings-daemon-3.24.1.tar.xz
 Summary  : gnome-settings-daemon specific enumerations
@@ -15,23 +15,16 @@ Requires: gnome-settings-daemon-lib
 Requires: gnome-settings-daemon-bin
 Requires: gnome-settings-daemon-data
 Requires: gnome-settings-daemon-locales
-BuildRequires : automake
-BuildRequires : automake-dev
 BuildRequires : cups-dev
 BuildRequires : docbook-xml
 BuildRequires : e2fsprogs-dev
 BuildRequires : gettext
-BuildRequires : gettext-bin
 BuildRequires : intltool
 BuildRequires : itstool
 BuildRequires : krb5-dev
-BuildRequires : libtool
-BuildRequires : libtool-dev
 BuildRequires : libwacom-dev
 BuildRequires : libxslt-bin
-BuildRequires : m4
 BuildRequires : perl(XML::Parser)
-BuildRequires : pkg-config-dev
 BuildRequires : pkgconfig(alsa)
 BuildRequires : pkgconfig(colord)
 BuildRequires : pkgconfig(fontconfig)
@@ -62,8 +55,7 @@ BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(xorg-wacom)
 BuildRequires : pkgconfig(xtst)
 BuildRequires : sed
-Patch1: 0002-plugins-Use-usr-share-xdg-autostart-for-stateless-co.patch
-Patch2: add_hidden.patch
+Patch1: wakeups.patch
 
 %description
 
@@ -127,14 +119,13 @@ locales components for the gnome-settings-daemon package.
 %prep
 %setup -q -n gnome-settings-daemon-3.24.1
 %patch1 -p1
-%patch2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1493300402
+export SOURCE_DATE_EPOCH=1493437429
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -142,7 +133,7 @@ export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sect
 export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
 export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto -fno-semantic-interposition "
-%reconfigure --disable-static --disable-smartcard-support --disable-schemas-compile
+%configure --disable-static --disable-smartcard-support --disable-schemas-compile
 make V=1  %{?_smp_mflags}
 
 %check
@@ -153,7 +144,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1493300402
+export SOURCE_DATE_EPOCH=1493437429
 rm -rf %{buildroot}
 %make_install
 %find_lang gnome-settings-daemon
@@ -216,26 +207,6 @@ rm -rf %{buildroot}
 /usr/share/icons/hicolor/scalable/apps/gsd-xrandr.svg
 /usr/share/polkit-1/actions/org.gnome.settings-daemon.plugins.power.policy
 /usr/share/polkit-1/actions/org.gnome.settings-daemon.plugins.wacom.policy
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.A11yKeyboard.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.A11ySettings.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Clipboard.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Color.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Datetime.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Housekeeping.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Keyboard.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.MediaKeys.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Mouse.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Orientation.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Power.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.PrintNotifications.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Rfkill.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.ScreensaverProxy.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Sharing.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Smartcard.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Sound.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Wacom.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.XRANDR.desktop
-/usr/share/xdg/autostart/org.gnome.SettingsDaemon.XSettings.desktop
 
 %files dev
 %defattr(-,root,root,-)

@@ -1,0 +1,11 @@
+--- gnome-settings-daemon-3.24.0/plugins/color/gsd-night-light.c~	2017-03-15 12:07:28.000000000 +0000
++++ gnome-settings-daemon-3.24.0/plugins/color/gsd-night-light.c	2017-04-29 03:38:59.014061835 +0000
+@@ -62,7 +62,7 @@
+         PROP_LAST
+ };
+ 
+-#define GSD_NIGHT_LIGHT_SCHEDULE_TIMEOUT      5       /* seconds */
++#define GSD_NIGHT_LIGHT_SCHEDULE_TIMEOUT      60       /* seconds */
+ #define GSD_NIGHT_LIGHT_POLL_TIMEOUT          60      /* seconds */
+ #define GSD_NIGHT_LIGHT_POLL_SMEAR            1       /* hours */
+ #define GSD_NIGHT_LIGHT_SMOOTH_SMEAR          5.f     /* seconds */
