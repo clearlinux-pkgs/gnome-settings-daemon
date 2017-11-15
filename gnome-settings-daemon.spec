@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.26.2
-Release  : 19
+Release  : 20
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/3.26/gnome-settings-daemon-3.26.2.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/3.26/gnome-settings-daemon-3.26.2.tar.xz
 Summary  : gnome-settings-daemon specific enumerations
