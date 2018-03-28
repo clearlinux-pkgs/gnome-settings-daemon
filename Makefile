@@ -1,5 +1,5 @@
 PKG_NAME := gnome-settings-daemon
-URL := https://download.gnome.org/sources/gnome-settings-daemon/3.26/gnome-settings-daemon-3.26.2.tar.xz
-
+URL = https://download.gnome.org/sources/gnome-settings-daemon/3.28/gnome-settings-daemon-3.28.0.tar.xz
+ARCHIVES = 
 
 include ../common/Makefile.common

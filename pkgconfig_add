@@ -8,3 +8,14 @@ geocode-glib-1.0
 gweather-3.0
 polkit-gobject-1
 upower-glib
+
+colord
+gnome-desktop-3.0
+lcms2
+libnotify
+libpulse-mainloop-glib
+xtst
+alsa
+gudev-1.0
+nss
+libnm

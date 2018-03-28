@@ -1,0 +1,11 @@
+--- gnome-settings-daemon-3.28.0/meson.build~	2018-03-12 14:23:32.000000000 +0000
++++ gnome-settings-daemon-3.28.0/meson.build	2018-03-28 01:42:01.506812856 +0000
+@@ -194,7 +194,7 @@
+ config_h.set('HAVE_NETWORK_MANAGER', enable_network_manager)
+ 
+ gnome = import('gnome')
+-i18n = import('i18n')
++#i18n = import('i18n')
+ pkg = import('pkgconfig')
+ 
+ po_dir = join_paths(meson.source_root(), 'po')
