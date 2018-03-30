@@ -10,3 +10,7 @@ krb5-dev
 e2fsprogs-dev
 gsettings-desktop-schemas
 colord
+gobject-introspection-dev
+gobject-introspection
+dbus-dev
+
