@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.28.0
-Release  : 26
+Release  : 27
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/3.28/gnome-settings-daemon-3.28.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/3.28/gnome-settings-daemon-3.28.0.tar.xz
 Summary  : No detailed summary available
@@ -53,6 +53,7 @@ BuildRequires : python3
 BuildRequires : qtbase-dev
 Patch1: add_hidden.patch
 Patch2: wakeups.patch
+Patch3: no-suspend-on-ac.patch
 
 %description
 
@@ -116,13 +117,14 @@ locales components for the gnome-settings-daemon package.
 %setup -q -n gnome-settings-daemon-3.28.0
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1522434111
+export SOURCE_DATE_EPOCH=1522438742
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
