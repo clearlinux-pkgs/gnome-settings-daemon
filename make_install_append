@@ -1,0 +1,2 @@
+mkdir -p %{buildroot}/usr/share/xdg/
+mv %{buildroot}/etc/xdg/* %{buildroot}/usr/share/xdg/

@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.28.0
-Release  : 25
+Release  : 26
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/3.28/gnome-settings-daemon-3.28.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/3.28/gnome-settings-daemon-3.28.0.tar.xz
 Summary  : No detailed summary available
@@ -122,7 +122,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1522433876
+export SOURCE_DATE_EPOCH=1522434111
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -136,6 +136,10 @@ ninja -v -C builddir
 %install
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang gnome-settings-daemon
+## make_install_append content
+mkdir -p %{buildroot}/usr/share/xdg/
+mv %{buildroot}/etc/xdg/* %{buildroot}/usr/share/xdg/
+## make_install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -187,6 +191,23 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/share/gnome-settings-daemon/datetime/backward
 /usr/share/polkit-1/actions/org.gnome.settings-daemon.plugins.power.policy
 /usr/share/polkit-1/actions/org.gnome.settings-daemon.plugins.wacom.policy
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.A11ySettings.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Clipboard.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Color.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Datetime.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Housekeeping.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Keyboard.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.MediaKeys.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Mouse.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Power.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.PrintNotifications.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Rfkill.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.ScreensaverProxy.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Sharing.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Smartcard.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Sound.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.Wacom.desktop
+/usr/share/xdg/autostart/org.gnome.SettingsDaemon.XSettings.desktop
 
 %files dev
 %defattr(-,root,root,-)
