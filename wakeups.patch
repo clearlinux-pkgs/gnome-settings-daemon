@@ -1,6 +1,6 @@
---- gnome-settings-daemon-3.24.0/plugins/color/gsd-night-light.c~	2017-03-15 12:07:28.000000000 +0000
-+++ gnome-settings-daemon-3.24.0/plugins/color/gsd-night-light.c	2017-04-29 03:38:59.014061835 +0000
-@@ -62,7 +62,7 @@
+--- gnome-settings-daemon-3.28.0/plugins/color/gsd-night-light.c~	2018-03-12 14:23:32.000000000 +0000
++++ gnome-settings-daemon-3.28.0/plugins/color/gsd-night-light.c	2018-04-05 23:39:53.415900577 +0000
+@@ -63,7 +63,7 @@
          PROP_LAST
  };
  
@@ -9,3 +9,14 @@
  #define GSD_NIGHT_LIGHT_POLL_TIMEOUT          60      /* seconds */
  #define GSD_NIGHT_LIGHT_POLL_SMEAR            1       /* hours */
  #define GSD_NIGHT_LIGHT_SMOOTH_SMEAR          5.f     /* seconds */
+--- gnome-settings-daemon-3.28.0/plugins/color/gnome-datetime-source.c~	2018-03-12 14:23:32.000000000 +0000
++++ gnome-settings-daemon-3.28.0/plugins/color/gnome-datetime-source.c	2018-04-05 23:41:15.989238104 +0000
+@@ -50,7 +50,7 @@
+ g_datetime_source_reschedule (GDateTimeSource *datetime_source,
+ 			      gint64                from_monotonic)
+ {
+-	datetime_source->wakeup_expiration = from_monotonic + G_TIME_SPAN_SECOND;
++	datetime_source->wakeup_expiration = from_monotonic + G_TIME_SPAN_SECOND * 30;
+ }
+ 
+ static gboolean
