@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.28.1
-Release  : 32
+Release  : 33
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/3.28/gnome-settings-daemon-3.28.1.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/3.28/gnome-settings-daemon-3.28.1.tar.xz
 Summary  : No detailed summary available
