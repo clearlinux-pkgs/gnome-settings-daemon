@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.28.1
-Release  : 33
+Release  : 34
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/3.28/gnome-settings-daemon-3.28.1.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/3.28/gnome-settings-daemon-3.28.1.tar.xz
 Summary  : No detailed summary available
@@ -14,12 +14,16 @@ Requires: gnome-settings-daemon-config
 Requires: gnome-settings-daemon-lib
 Requires: gnome-settings-daemon-bin
 Requires: gnome-settings-daemon-data
+Requires: gnome-settings-daemon-license
 Requires: gnome-settings-daemon-locales
+BuildRequires : buildreq-meson
+BuildRequires : buildreq-qmake
 BuildRequires : colord
 BuildRequires : cups-dev
 BuildRequires : dbus-dev
 BuildRequires : docbook-xml
 BuildRequires : e2fsprogs-dev
+BuildRequires : gnutls-dev
 BuildRequires : gobject-introspection
 BuildRequires : gobject-introspection-dev
 BuildRequires : gsettings-desktop-schemas
@@ -28,8 +32,6 @@ BuildRequires : itstool
 BuildRequires : krb5-dev
 BuildRequires : libwacom-dev
 BuildRequires : libxslt-bin
-BuildRequires : meson
-BuildRequires : ninja
 BuildRequires : pkgconfig(alsa)
 BuildRequires : pkgconfig(colord)
 BuildRequires : pkgconfig(geocode-glib-1.0)
@@ -49,8 +51,6 @@ BuildRequires : pkgconfig(udev)
 BuildRequires : pkgconfig(upower-glib)
 BuildRequires : pkgconfig(xorg-wacom)
 BuildRequires : pkgconfig(xtst)
-BuildRequires : python3
-BuildRequires : qtbase-dev
 Patch1: add_hidden.patch
 Patch2: wakeups.patch
 Patch3: no-suspend-on-ac.patch
@@ -63,6 +63,7 @@ Summary: bin components for the gnome-settings-daemon package.
 Group: Binaries
 Requires: gnome-settings-daemon-data
 Requires: gnome-settings-daemon-config
+Requires: gnome-settings-daemon-license
 
 %description bin
 bin components for the gnome-settings-daemon package.
@@ -100,9 +101,18 @@ dev components for the gnome-settings-daemon package.
 Summary: lib components for the gnome-settings-daemon package.
 Group: Libraries
 Requires: gnome-settings-daemon-data
+Requires: gnome-settings-daemon-license
 
 %description lib
 lib components for the gnome-settings-daemon package.
+
+
+%package license
+Summary: license components for the gnome-settings-daemon package.
+Group: Default
+
+%description license
+license components for the gnome-settings-daemon package.
 
 
 %package locales
@@ -124,7 +134,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1523563090
+export SOURCE_DATE_EPOCH=1535062622
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -132,16 +142,19 @@ export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sect
 export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
 export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition "
-CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --prefix /usr --buildtype=plain  builddir
+CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --prefix /usr --buildtype=plain   builddir
 ninja -v -C builddir
 
 %install
+mkdir -p %{buildroot}/usr/share/doc/gnome-settings-daemon
+cp COPYING %{buildroot}/usr/share/doc/gnome-settings-daemon/COPYING
+cp COPYING.LIB %{buildroot}/usr/share/doc/gnome-settings-daemon/COPYING.LIB
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang gnome-settings-daemon
-## make_install_append content
+## install_append content
 mkdir -p %{buildroot}/usr/share/xdg/
 mv %{buildroot}/etc/xdg/* %{buildroot}/usr/share/xdg/
-## make_install_append end
+## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -219,6 +232,11 @@ mv %{buildroot}/etc/xdg/* %{buildroot}/usr/share/xdg/
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/gnome-settings-daemon-3.0/libgsd.so
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/gnome-settings-daemon/COPYING
+/usr/share/doc/gnome-settings-daemon/COPYING.LIB
 
 %files locales -f gnome-settings-daemon.lang
 %defattr(-,root,root,-)
