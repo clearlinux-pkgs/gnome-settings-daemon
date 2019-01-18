@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.30.2
-Release  : 41
+Release  : 42
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/3.30/gnome-settings-daemon-3.30.2.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/3.30/gnome-settings-daemon-3.30.2.tar.xz
 Summary  : GNOME Settings Daemon
@@ -48,6 +48,7 @@ BuildRequires : pkgconfig(libpulse-mainloop-glib)
 BuildRequires : pkgconfig(librsvg-2.0)
 BuildRequires : pkgconfig(nss)
 BuildRequires : pkgconfig(polkit-gobject-1)
+BuildRequires : pkgconfig(udev)
 BuildRequires : pkgconfig(upower-glib)
 BuildRequires : pkgconfig(xorg-wacom)
 BuildRequires : pkgconfig(xtst)
@@ -83,6 +84,14 @@ Provides: gnome-settings-daemon-devel = %{version}-%{release}
 
 %description dev
 dev components for the gnome-settings-daemon package.
+
+
+%package extras
+Summary: extras components for the gnome-settings-daemon package.
+Group: Default
+
+%description extras
+extras components for the gnome-settings-daemon package.
 
 
 %package lib
@@ -133,7 +142,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1547064413
+export SOURCE_DATE_EPOCH=1547825931
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -164,10 +173,11 @@ mv %{buildroot}/etc/xdg/* %{buildroot}/usr/share/xdg/
 
 %files data
 %defattr(-,root,root,-)
+%exclude /usr/share/glib-2.0/schemas/org.gnome.settings-daemon.peripherals.wacom.gschema.xml
+%exclude /usr/share/polkit-1/actions/org.gnome.settings-daemon.plugins.wacom.policy
 /usr/share/GConf/gsettings/gnome-settings-daemon.convert
 /usr/share/glib-2.0/schemas/org.gnome.settings-daemon.enums.xml
 /usr/share/glib-2.0/schemas/org.gnome.settings-daemon.peripherals.gschema.xml
-/usr/share/glib-2.0/schemas/org.gnome.settings-daemon.peripherals.wacom.gschema.xml
 /usr/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.color.gschema.xml
 /usr/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.gschema.xml
 /usr/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml
@@ -177,7 +187,6 @@ mv %{buildroot}/etc/xdg/* %{buildroot}/usr/share/xdg/
 /usr/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.xsettings.gschema.xml
 /usr/share/gnome-settings-daemon/datetime/backward
 /usr/share/polkit-1/actions/org.gnome.settings-daemon.plugins.power.policy
-/usr/share/polkit-1/actions/org.gnome.settings-daemon.plugins.wacom.policy
 /usr/share/xdg/autostart/org.gnome.SettingsDaemon.A11ySettings.desktop
 /usr/share/xdg/autostart/org.gnome.SettingsDaemon.Clipboard.desktop
 /usr/share/xdg/autostart/org.gnome.SettingsDaemon.Color.desktop
@@ -201,12 +210,19 @@ mv %{buildroot}/etc/xdg/* %{buildroot}/usr/share/xdg/
 /usr/include/gnome-settings-daemon-3.0/gnome-settings-daemon/gsd-enums.h
 /usr/lib64/pkgconfig/gnome-settings-daemon.pc
 
+%files extras
+%defattr(-,root,root,-)
+/usr/libexec/gsd-wacom
+/usr/share/glib-2.0/schemas/org.gnome.settings-daemon.peripherals.wacom.gschema.xml
+/usr/share/polkit-1/actions/org.gnome.settings-daemon.plugins.wacom.policy
+
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/gnome-settings-daemon-3.0/libgsd.so
 
 %files libexec
 %defattr(-,root,root,-)
+%exclude /usr/libexec/gsd-wacom
 /usr/libexec/gsd-a11y-settings
 /usr/libexec/gsd-backlight-helper
 /usr/libexec/gsd-clipboard
@@ -227,7 +243,6 @@ mv %{buildroot}/etc/xdg/* %{buildroot}/usr/share/xdg/
 /usr/libexec/gsd-smartcard
 /usr/libexec/gsd-sound
 /usr/libexec/gsd-test-input-helper
-/usr/libexec/gsd-wacom
 /usr/libexec/gsd-wacom-led-helper
 /usr/libexec/gsd-wacom-oled-helper
 /usr/libexec/gsd-xsettings
