@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.30.2
-Release  : 42
+Release  : 43
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/3.30/gnome-settings-daemon-3.30.2.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/3.30/gnome-settings-daemon-3.30.2.tar.xz
 Summary  : GNOME Settings Daemon
@@ -55,6 +55,7 @@ BuildRequires : pkgconfig(xtst)
 Patch1: add_hidden.patch
 Patch2: wakeups.patch
 Patch3: no-suspend-on-ac.patch
+Patch4: nosound.patch
 
 %description
 
@@ -136,13 +137,14 @@ locales components for the gnome-settings-daemon package.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1547825931
+export SOURCE_DATE_EPOCH=1547871966
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm

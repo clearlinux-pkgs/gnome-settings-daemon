@@ -2,3 +2,4 @@
 add_hidden.patch
 wakeups.patch
 no-suspend-on-ac.patch
+nosound.patch

@@ -1,0 +1,188 @@
+diff -u gnome-settings-daemon-3.30.2/plugins/power.org/gpm-common.c gnome-settings-daemon-3.30.2/plugins/power/gpm-common.c
+--- gnome-settings-daemon-3.30.2/plugins/power.org/gpm-common.c	2019-01-09 16:02:52.000000000 +0000
++++ gnome-settings-daemon-3.30.2/plugins/power/gpm-common.c	2019-01-19 04:20:16.270949664 +0000
+@@ -921,41 +921,3 @@
+         return FALSE;
+ }
+ 
+-static void
+-play_sound (void)
+-{
+-        ca_context_play (ca_gtk_context_get (), UPS_SOUND_LOOP_ID,
+-                         CA_PROP_EVENT_ID, "battery-caution",
+-                         CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
+-}
+-
+-static gboolean
+-play_loop_timeout_cb (gpointer user_data)
+-{
+-        play_sound ();
+-        return TRUE;
+-}
+-
+-void
+-play_loop_start (guint *id)
+-{
+-        if (*id != 0)
+-                return;
+-
+-        *id = g_timeout_add_seconds (GSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT,
+-                                     (GSourceFunc) play_loop_timeout_cb,
+-                                     NULL);
+-        g_source_set_name_by_id (*id, "[gnome-settings-daemon] play_loop_timeout_cb");
+-        play_sound ();
+-}
+-
+-void
+-play_loop_stop (guint *id)
+-{
+-        if (*id == 0)
+-                return;
+-
+-        ca_context_cancel (ca_gtk_context_get (), UPS_SOUND_LOOP_ID);
+-        g_source_remove (*id);
+-        *id = 0;
+-}
+diff -u gnome-settings-daemon-3.30.2/plugins/power.org/gsd-power-manager.c gnome-settings-daemon-3.30.2/plugins/power/gsd-power-manager.c
+--- gnome-settings-daemon-3.30.2/plugins/power.org/gsd-power-manager.c	2019-01-09 16:02:52.000000000 +0000
++++ gnome-settings-daemon-3.30.2/plugins/power/gsd-power-manager.c	2019-01-19 04:23:44.298946768 +0000
+@@ -405,15 +405,6 @@
+         return policy;
+ }
+ 
+-static gboolean
+-manager_critical_action_stop_sound_cb (GsdPowerManager *manager)
+-{
+-        /* stop playing the alert as it's too late to do anything now */
+-        play_loop_stop (&manager->priv->critical_alert_timeout_id);
+-
+-        return FALSE;
+-}
+-
+ static void
+ engine_charge_low (GsdPowerManager *manager, UpDevice *device)
+ {
+@@ -529,12 +520,6 @@
+ 
+         notify_notification_show (manager->priv->notification_low, NULL);
+ 
+-        /* play the sound, using sounds from the naming spec */
+-        ca_context_play (ca_gtk_context_get (), 0,
+-                         CA_PROP_EVENT_ID, "battery-low",
+-                         /* TRANSLATORS: this is the sound description */
+-                         CA_PROP_EVENT_DESCRIPTION, _("Battery is low"), NULL);
+-
+         g_free (icon_name);
+         g_free (message);
+ }
+@@ -680,15 +665,10 @@
+         case UP_DEVICE_KIND_BATTERY:
+         case UP_DEVICE_KIND_UPS:
+                 g_debug ("critical charge level reached, starting sound loop");
+-                play_loop_start (&manager->priv->critical_alert_timeout_id);
+                 break;
+ 
+         default:
+                 /* play the sound, using sounds from the naming spec */
+-                ca_context_play (ca_gtk_context_get (), 0,
+-                                 CA_PROP_EVENT_ID, "battery-caution",
+-                                 /* TRANSLATORS: this is the sound description */
+-                                 CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
+                 break;
+         }
+ 
+@@ -732,12 +712,6 @@
+                                               "this computer is about to shutdown."));
+                 }
+ 
+-                /* wait 20 seconds for user-panic */
+-                timer_id = g_timeout_add_seconds (GSD_STOP_SOUND_DELAY,
+-                                                  (GSourceFunc) manager_critical_action_stop_sound_cb,
+-                                                  manager);
+-                g_source_set_name_by_id (timer_id, "[GsdPowerManager] battery critical-action");
+-
+         } else if (kind == UP_DEVICE_KIND_UPS) {
+                 /* TRANSLATORS: UPS is really, really, low */
+                 title = _("UPS critically low");
+@@ -757,11 +731,6 @@
+                                               "this computer is about to shutdown."));
+                 }
+ 
+-                /* wait 20 seconds for user-panic */
+-                timer_id = g_timeout_add_seconds (GSD_STOP_SOUND_DELAY,
+-                                                  (GSourceFunc) manager_critical_action_stop_sound_cb,
+-                                                  manager);
+-                g_source_set_name_by_id (timer_id, "[GsdPowerManager] ups critical-action");
+         }
+ 
+         /* not all types have actions */
+@@ -782,11 +751,6 @@
+         notify_notification_show (manager->priv->notification_low, NULL);
+ 
+         /* play the sound, using sounds from the naming spec */
+-        ca_context_play (ca_gtk_context_get (), 0,
+-                         CA_PROP_EVENT_ID, "battery-caution",
+-                         /* TRANSLATORS: this is the sound description */
+-                         CA_PROP_EVENT_DESCRIPTION, _("Battery is critically low"), NULL);
+-
+         g_free (icon_name);
+         g_free (message);
+ }
+@@ -818,7 +782,6 @@
+                 /* FIXME: this only handles one notification
+                  * for the whole system, instead of one per device */
+                 g_debug ("fully charged or charging, hiding notifications if any");
+-                play_loop_stop (&manager->priv->critical_alert_timeout_id);
+                 if (kind != UP_DEVICE_KIND_UPS)
+                         notify_close_if_showing (&manager->priv->notification_low);
+                 else
+@@ -1314,11 +1277,6 @@
+ do_lid_open_action (GsdPowerManager *manager)
+ {
+         /* play a sound, using sounds from the naming spec */
+-        ca_context_play (ca_gtk_context_get (), 0,
+-                         CA_PROP_EVENT_ID, "lid-open",
+-                         /* TRANSLATORS: this is the sound description */
+-                         CA_PROP_EVENT_DESCRIPTION, _("Lid has been opened"),
+-                         NULL);
+ }
+ 
+ static void
+@@ -1348,11 +1306,6 @@
+ do_lid_closed_action (GsdPowerManager *manager)
+ {
+         /* play a sound, using sounds from the naming spec */
+-        ca_context_play (ca_gtk_context_get (), 0,
+-                         CA_PROP_EVENT_ID, "lid-close",
+-                         /* TRANSLATORS: this is the sound description */
+-                         CA_PROP_EVENT_DESCRIPTION, _("Lid has been closed"),
+-                         NULL);
+ 
+         /* refresh RANDR so we get an accurate view of what monitors are plugged in when the lid is closed */
+         gnome_rr_screen_refresh (manager->priv->rr_screen, NULL); /* NULL-GError */
+@@ -1944,16 +1897,7 @@
+                          GsdPowerManager *manager)
+ {
+         if (up_client_get_on_battery (manager->priv->up_client)) {
+-                ca_context_play (ca_gtk_context_get (), 0,
+-                                 CA_PROP_EVENT_ID, "power-unplug",
+-                                 /* TRANSLATORS: this is the sound description */
+-                                 CA_PROP_EVENT_DESCRIPTION, _("On battery power"), NULL);
+         } else {
+-                ca_context_play (ca_gtk_context_get (), 0,
+-                                 CA_PROP_EVENT_ID, "power-plug",
+-                                 /* TRANSLATORS: this is the sound description */
+-                                 CA_PROP_EVENT_DESCRIPTION, _("On AC power"), NULL);
+-
+         }
+ 
+         idle_configure (manager);
+@@ -2799,8 +2743,6 @@
+ 
+         g_clear_object (&manager->priv->screensaver_proxy);
+ 
+-        play_loop_stop (&manager->priv->critical_alert_timeout_id);
+-
+         g_clear_object (&manager->priv->idle_monitor);
+         g_clear_object (&manager->priv->upower_kbd_proxy);
+ 
