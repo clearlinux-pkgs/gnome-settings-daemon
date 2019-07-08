@@ -1,5 +1,3 @@
-#0002-plugins-Use-usr-share-xdg-autostart-for-stateless-co.patch
-#add_hidden.patch
 wakeups.patch
 no-suspend-on-ac.patch
 nosound.patch
