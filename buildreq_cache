@@ -1,4 +1,6 @@
-3.32.1
+3.34.0
 gnutls-dev
 gsettings-desktop-schemas-dev
+pkgconfig(gcr-base-3)
+pkgconfig(mm-glib)
 pkgconfig(udev)
