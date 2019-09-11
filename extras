@@ -1,3 +1,6 @@
 /usr/share/glib-2.0/schemas/org.gnome.settings-daemon.peripherals.wacom.gschema.xml
 /usr/share/polkit-1/actions/org.gnome.settings-daemon.plugins.wacom.policy
 /usr/libexec/gsd-wacom
+/usr/lib/systemd/user/gnome-session-initialized.target.wants/gsd-wacom.target
+/usr/lib/systemd/user/gsd-wacom.service
+/usr/lib/systemd/user/gsd-wacom.target

@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.34.0
-Release  : 48
+Release  : 49
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/3.34/gnome-settings-daemon-3.34.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/3.34/gnome-settings-daemon-3.34.0.tar.xz
 Summary  : GNOME Settings Daemon
@@ -28,6 +28,7 @@ BuildRequires : gnutls-dev
 BuildRequires : gobject-introspection
 BuildRequires : gobject-introspection-dev
 BuildRequires : gsettings-desktop-schemas
+BuildRequires : gsettings-desktop-schemas-dev
 BuildRequires : intltool
 BuildRequires : itstool
 BuildRequires : krb5-dev
@@ -50,6 +51,7 @@ BuildRequires : pkgconfig(librsvg-2.0)
 BuildRequires : pkgconfig(mm-glib)
 BuildRequires : pkgconfig(nss)
 BuildRequires : pkgconfig(polkit-gobject-1)
+BuildRequires : pkgconfig(udev)
 BuildRequires : pkgconfig(upower-glib)
 BuildRequires : pkgconfig(xorg-wacom)
 BuildRequires : pkgconfig(xtst)
@@ -81,7 +83,6 @@ Group: Development
 Requires: gnome-settings-daemon-lib = %{version}-%{release}
 Requires: gnome-settings-daemon-data = %{version}-%{release}
 Provides: gnome-settings-daemon-devel = %{version}-%{release}
-Requires: gnome-settings-daemon = %{version}-%{release}
 Requires: gnome-settings-daemon = %{version}-%{release}
 
 %description dev
@@ -151,8 +152,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1568122707
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1568238901
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -221,6 +221,9 @@ mv %{buildroot}/etc/xdg/* %{buildroot}/usr/share/xdg/
 
 %files extras
 %defattr(-,root,root,-)
+/usr/lib/systemd/user/gnome-session-initialized.target.wants/gsd-wacom.target
+/usr/lib/systemd/user/gsd-wacom.service
+/usr/lib/systemd/user/gsd-wacom.target
 /usr/libexec/gsd-wacom
 /usr/share/glib-2.0/schemas/org.gnome.settings-daemon.peripherals.wacom.gschema.xml
 /usr/share/polkit-1/actions/org.gnome.settings-daemon.plugins.wacom.policy
@@ -272,7 +275,6 @@ mv %{buildroot}/etc/xdg/* %{buildroot}/usr/share/xdg/
 /usr/lib/systemd/user/gnome-session-initialized.target.wants/gsd-sharing.target
 /usr/lib/systemd/user/gnome-session-initialized.target.wants/gsd-smartcard.target
 /usr/lib/systemd/user/gnome-session-initialized.target.wants/gsd-sound.target
-/usr/lib/systemd/user/gnome-session-initialized.target.wants/gsd-wacom.target
 /usr/lib/systemd/user/gnome-session-initialized.target.wants/gsd-wwan.target
 /usr/lib/systemd/user/gnome-session-x11-services.target.wants/gsd-xsettings.target
 /usr/lib/systemd/user/gsd-a11y-settings.service
@@ -301,8 +303,6 @@ mv %{buildroot}/etc/xdg/* %{buildroot}/usr/share/xdg/
 /usr/lib/systemd/user/gsd-smartcard.target
 /usr/lib/systemd/user/gsd-sound.service
 /usr/lib/systemd/user/gsd-sound.target
-/usr/lib/systemd/user/gsd-wacom.service
-/usr/lib/systemd/user/gsd-wacom.target
 /usr/lib/systemd/user/gsd-wwan.service
 /usr/lib/systemd/user/gsd-wwan.target
 /usr/lib/systemd/user/gsd-xsettings.service
