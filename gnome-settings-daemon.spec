@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 3.34.0
-Release  : 49
+Release  : 50
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/3.34/gnome-settings-daemon-3.34.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/3.34/gnome-settings-daemon-3.34.0.tar.xz
 Summary  : GNOME Settings Daemon
