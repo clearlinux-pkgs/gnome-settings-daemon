@@ -1,4 +1,63 @@
 ============
+Version 42.1
+============
+- Brown paper bag release
+
+============
+Version 42.0
+============
+- Translation updates
+
+Keyboard:
+- Clear content of gtk-im-module setting
+
+=============
+Version 42.rc
+=============
+
+Sharing:
+- Do not manage gnome-remote-desktop, now done through
+  gnome-control-center and systemd services
+
+===============
+Version 42.beta
+===============
+- Translation updates
+
+Datetime:
+- Port to GWeather 4
+
+Media-keys:
+- Fix launching of Settings actions
+- Suppress UCM generic soundcard names on volume OSDs
+- Remove screenshot key handling, done now in GNOME Shell
+
+Power:
+- Improve battery warning debouncing logic
+
+XSettings:
+- Adopt x11-specific code to look up GTK IM module from
+  gsd-keyboard
+
+================
+Version 42.alpha
+================
+- Translation updates
+
+Color:
+- Night light color temperature fixes
+
+Media-keys:
+- Remove GNOME-specific MediaKeys API
+- Multiple MPRIS fixes
+
+Power:
+- Do not print an error for failures from realpath
+
+XSettings:
+- Support new "high-contrast" setting
+
+============
 Version 41.0
 ============
 - Translation updates
