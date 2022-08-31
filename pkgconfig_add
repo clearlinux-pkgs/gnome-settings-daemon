@@ -5,7 +5,7 @@ libcanberra-gtk3
 xorg-wacom
 libgeoclue-2.0
 geocode-glib-1.0
-gweather-3.0
+gweather4
 polkit-gobject-1
 upower-glib
 

@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 42.2
-Release  : 61
+Release  : 62
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/42/gnome-settings-daemon-42.2.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/42/gnome-settings-daemon-42.2.tar.xz
 Summary  : No detailed summary available
@@ -38,7 +38,6 @@ BuildRequires : pkgconfig(gcr-base-3)
 BuildRequires : pkgconfig(geocode-glib-1.0)
 BuildRequires : pkgconfig(gnome-desktop-3.0)
 BuildRequires : pkgconfig(gudev-1.0)
-BuildRequires : pkgconfig(gweather-3.0)
 BuildRequires : pkgconfig(gweather4)
 BuildRequires : pkgconfig(lcms2)
 BuildRequires : pkgconfig(libcanberra-gtk3)
@@ -153,7 +152,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1654116769
+export SOURCE_DATE_EPOCH=1661966730
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -174,8 +173,8 @@ meson test -C builddir --print-errorlogs || :
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/gnome-settings-daemon
-cp %{_builddir}/gnome-settings-daemon-42.2/COPYING %{buildroot}/usr/share/package-licenses/gnome-settings-daemon/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1
-cp %{_builddir}/gnome-settings-daemon-42.2/COPYING.LIB %{buildroot}/usr/share/package-licenses/gnome-settings-daemon/caeb68c46fa36651acf592771d09de7937926bb3
+cp %{_builddir}/gnome-settings-daemon-%{version}/COPYING %{buildroot}/usr/share/package-licenses/gnome-settings-daemon/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1
+cp %{_builddir}/gnome-settings-daemon-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/gnome-settings-daemon/caeb68c46fa36651acf592771d09de7937926bb3
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang gnome-settings-daemon
 ## install_append content
