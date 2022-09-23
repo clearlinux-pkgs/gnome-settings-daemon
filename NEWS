@@ -1,4 +1,37 @@
 ============
+Version 43.0
+============
+- Translation updates
+
+=============
+Version 43.rc
+=============
+- Translation updates
+
+Color:
+- Night light and color management functionality moved to Mutter
+
+Housekeeping:
+- Notify of applications being closed due to OOM
+
+===============
+Version 43.beta
+===============
+- Build with gcr4 by default
+
+================
+Version 43.alpha
+================
+
+Datetime:
+- Optionally depend on libsoup3-enabled geocode-glib
+
+Xsettings:
+- Unset GDK_BACKEND envvar
+
+Translation updates
+
+============
 Version 42.2
 ============
 - Translation updates
