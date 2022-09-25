@@ -4,7 +4,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 43.0
-Release  : 70
+Release  : 71
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/43/gnome-settings-daemon-43.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/43/gnome-settings-daemon-43.0.tar.xz
 Summary  : No detailed summary available
@@ -152,7 +152,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1663963578
+export SOURCE_DATE_EPOCH=1664150226
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
