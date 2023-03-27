@@ -1,5 +1,4 @@
-43.0
+44.0
 pkgconfig(gcr-4)
-pkgconfig(geocode-glib-2.0)
 pkgconfig(mm-glib)
 pygobject
