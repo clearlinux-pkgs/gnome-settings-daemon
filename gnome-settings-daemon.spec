@@ -5,7 +5,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 44.0
-Release  : 79
+Release  : 80
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/44/gnome-settings-daemon-44.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/44/gnome-settings-daemon-44.0.tar.xz
 Summary  : No detailed summary available
@@ -58,6 +58,7 @@ BuildRequires : pygobject
 %define __strip /bin/true
 %define debug_package %{nil}
 Patch1: wakeups.patch
+Patch2: no-suspend-on-ac.patch
 
 %description
 Introduction to GNOME Settings Daemon
@@ -148,13 +149,14 @@ services components for the gnome-settings-daemon package.
 %setup -q -n gnome-settings-daemon-44.0
 cd %{_builddir}/gnome-settings-daemon-44.0
 %patch1 -p1
+%patch2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1679926633
+export SOURCE_DATE_EPOCH=1680019898
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
