@@ -4,10 +4,10 @@
 # Using build pattern: meson
 #
 Name     : gnome-settings-daemon
-Version  : 44.0
-Release  : 82
-URL      : https://download.gnome.org/sources/gnome-settings-daemon/44/gnome-settings-daemon-44.0.tar.xz
-Source0  : https://download.gnome.org/sources/gnome-settings-daemon/44/gnome-settings-daemon-44.0.tar.xz
+Version  : 44.1
+Release  : 83
+URL      : https://download.gnome.org/sources/gnome-settings-daemon/44/gnome-settings-daemon-44.1.tar.xz
+Source0  : https://download.gnome.org/sources/gnome-settings-daemon/44/gnome-settings-daemon-44.1.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
@@ -53,7 +53,7 @@ BuildRequires : pkgconfig(polkit-gobject-1)
 BuildRequires : pkgconfig(upower-glib)
 BuildRequires : pkgconfig(xorg-wacom)
 BuildRequires : pkgconfig(xtst)
-BuildRequires : pygobject
+BuildRequires : pypi(gi)
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
@@ -140,14 +140,15 @@ locales components for the gnome-settings-daemon package.
 %package services
 Summary: services components for the gnome-settings-daemon package.
 Group: Systemd services
+Requires: systemd
 
 %description services
 services components for the gnome-settings-daemon package.
 
 
 %prep
-%setup -q -n gnome-settings-daemon-44.0
-cd %{_builddir}/gnome-settings-daemon-44.0
+%setup -q -n gnome-settings-daemon-44.1
+cd %{_builddir}/gnome-settings-daemon-44.1
 %patch1 -p1
 %patch2 -p1
 
@@ -156,7 +157,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1680030440
+export SOURCE_DATE_EPOCH=1682361650
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
