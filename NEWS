@@ -1,4 +1,44 @@
 ============
+Version 45.0
+============
+- Translation updates
+
+=============
+Version 45.rc
+=============
+- Translation updates
+
+Smartcards:
+- Rewrite to use p11-kit backend via Gck API
+
+================
+Version 45.beta
+================
+- Translation updates
+- Fix linkage of GResources
+
+USB protection:
+- Change wording of notification
+
+================
+Version 45.alpha
+================
+- Translation updates
+
+Housekeeping:
+- Clean up x-large and xx-large thumbnails
+
+Power:
+- Respect the "nothing" power-button-action for VMs
+- Expose number of supported steps for keyboard backlight
+
+Screensaver:
+- Better explain why out-of-spec D-Bus methods don't work
+
+USB protection:
+- Fix race conditions and other general improvements
+
+============
 Version 44.1
 ============
 - Translation updates

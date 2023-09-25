@@ -7,6 +7,7 @@ libcolord.so.2
 libcups.so.2
 libfontconfig.so.1
 libgcc_s.so.1
+libgck-2.so.0.0.0
 libgcr-4.so.0.0.0
 libgdk-3.so.0
 libgeoclue-2.so.0
@@ -22,8 +23,7 @@ libm.so.6
 libmm-glib.so.0
 libnm.so.0
 libnotify.so.4
-libnspr4.so
-libnss3.so
+libp11-kit.so.0
 libpolkit-gobject-1.so.0
 libpulse-mainloop-glib.so.0
 libpulse.so.0

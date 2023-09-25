@@ -1,4 +1,4 @@
-44.1
-pkgconfig(gcr-4)
+45.0
+pkgconfig(gck-2)
 pkgconfig(mm-glib)
 pypi(gi)

@@ -4,10 +4,10 @@
 # Using build pattern: meson
 #
 Name     : gnome-settings-daemon
-Version  : 44.1
-Release  : 85
-URL      : https://download.gnome.org/sources/gnome-settings-daemon/44/gnome-settings-daemon-44.1.tar.xz
-Source0  : https://download.gnome.org/sources/gnome-settings-daemon/44/gnome-settings-daemon-44.1.tar.xz
+Version  : 45.0
+Release  : 86
+URL      : https://download.gnome.org/sources/gnome-settings-daemon/45/gnome-settings-daemon-45.0.tar.xz
+Source0  : https://download.gnome.org/sources/gnome-settings-daemon/45/gnome-settings-daemon-45.0.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
@@ -35,7 +35,7 @@ BuildRequires : libwacom-dev
 BuildRequires : libxslt-bin
 BuildRequires : pkgconfig(alsa)
 BuildRequires : pkgconfig(colord)
-BuildRequires : pkgconfig(gcr-4)
+BuildRequires : pkgconfig(gck-2)
 BuildRequires : pkgconfig(geocode-glib-2.0)
 BuildRequires : pkgconfig(gnome-desktop-3.0)
 BuildRequires : pkgconfig(gudev-1.0)
@@ -147,27 +147,32 @@ services components for the gnome-settings-daemon package.
 
 
 %prep
-%setup -q -n gnome-settings-daemon-44.1
-cd %{_builddir}/gnome-settings-daemon-44.1
-%patch1 -p1
-%patch2 -p1
+%setup -q -n gnome-settings-daemon-45.0
+cd %{_builddir}/gnome-settings-daemon-45.0
+%patch -P 1 -p1
+%patch -P 2 -p1
+pushd ..
+cp -a gnome-settings-daemon-45.0 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682361650
+export SOURCE_DATE_EPOCH=1695683308
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
 ninja -v -C builddir
+CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -O3" CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 " LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddiravx2
+ninja -v -C builddiravx2
 
 %check
 export LANG=C.UTF-8
@@ -180,12 +185,14 @@ meson test -C builddir --print-errorlogs || :
 mkdir -p %{buildroot}/usr/share/package-licenses/gnome-settings-daemon
 cp %{_builddir}/gnome-settings-daemon-%{version}/COPYING %{buildroot}/usr/share/package-licenses/gnome-settings-daemon/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1 || :
 cp %{_builddir}/gnome-settings-daemon-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/gnome-settings-daemon/caeb68c46fa36651acf592771d09de7937926bb3 || :
+DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang gnome-settings-daemon
 ## install_append content
 mkdir -p %{buildroot}/usr/share/xdg/
 mv %{buildroot}/etc/xdg/* %{buildroot}/usr/share/xdg/
 ## install_append end
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -230,21 +237,42 @@ mv %{buildroot}/etc/xdg/* %{buildroot}/usr/share/xdg/
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/gnome-settings-daemon-44/gnome-settings-daemon/gsd-enums.h
+/usr/include/gnome-settings-daemon-45/gnome-settings-daemon/gsd-enums.h
 /usr/lib64/pkgconfig/gnome-settings-daemon.pc
 
 %files extras
 %defattr(-,root,root,-)
+/V3/usr/libexec/gsd-wacom
 /usr/libexec/gsd-wacom
 /usr/share/glib-2.0/schemas/org.gnome.settings-daemon.peripherals.wacom.gschema.xml
 /usr/share/polkit-1/actions/org.gnome.settings-daemon.plugins.wacom.policy
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/gnome-settings-daemon-44/libgsd.so
+/V3/usr/lib64/gnome-settings-daemon-45/libgsd.so
+/usr/lib64/gnome-settings-daemon-45/libgsd.so
 
 %files libexec
 %defattr(-,root,root,-)
+/V3/usr/libexec/gsd-a11y-settings
+/V3/usr/libexec/gsd-backlight-helper
+/V3/usr/libexec/gsd-color
+/V3/usr/libexec/gsd-datetime
+/V3/usr/libexec/gsd-housekeeping
+/V3/usr/libexec/gsd-keyboard
+/V3/usr/libexec/gsd-media-keys
+/V3/usr/libexec/gsd-power
+/V3/usr/libexec/gsd-print-notifications
+/V3/usr/libexec/gsd-printer
+/V3/usr/libexec/gsd-rfkill
+/V3/usr/libexec/gsd-screensaver-proxy
+/V3/usr/libexec/gsd-sharing
+/V3/usr/libexec/gsd-smartcard
+/V3/usr/libexec/gsd-sound
+/V3/usr/libexec/gsd-usb-protection
+/V3/usr/libexec/gsd-wacom-oled-helper
+/V3/usr/libexec/gsd-wwan
+/V3/usr/libexec/gsd-xsettings
 /usr/libexec/gsd-a11y-settings
 /usr/libexec/gsd-backlight-helper
 /usr/libexec/gsd-color
