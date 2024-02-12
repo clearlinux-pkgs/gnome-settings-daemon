@@ -7,7 +7,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 45.1
-Release  : 87
+Release  : 88
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/45/gnome-settings-daemon-45.1.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/45/gnome-settings-daemon-45.1.tar.xz
 Summary  : No detailed summary available
