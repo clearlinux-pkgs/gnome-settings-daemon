@@ -1,4 +1,39 @@
 ============
+Version 46.0
+============
+- Translation updates
+- Build improvements
+- Fixed glib deprecation warnings
+
+=============
+Version 46.rc
+=============
+- Translation updates
+
+Smartcard:
+- Don't lose track of token name on card removal
+
+===============
+Version 46.beta
+===============
+- Translation updates
+- CI fixes
+
+Xsettings:
+- Expose setting for switch shapes
+
+================
+Version 46.alpha
+================
+- Translation updates
+
+Sharing:
+- Add support for gnome-remote-desktop headless mode
+
+Power:
+- Don't show notifications on mobile hardware
+
+============
 Version 45.1
 ============
 - Translation updates

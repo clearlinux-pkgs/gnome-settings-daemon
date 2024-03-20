@@ -7,8 +7,8 @@ libcolord.so.2
 libcups.so.2
 libfontconfig.so.1
 libgcc_s.so.1
-libgck-2.so.0.0.0
-libgcr-4.so.0.0.0
+libgck-2.so.2
+libgcr-4.so.4
 libgdk-3.so.0
 libgeoclue-2.so.0
 libgeocode-glib-2.so.0
@@ -27,5 +27,6 @@ libp11-kit.so.0
 libpolkit-gobject-1.so.0
 libpulse-mainloop-glib.so.0
 libpulse.so.0
+libsystemd.so.0
 libupower-glib.so.3
 libwayland-client.so.0
