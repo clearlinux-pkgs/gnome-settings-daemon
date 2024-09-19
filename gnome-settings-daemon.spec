@@ -7,7 +7,7 @@
 #
 Name     : gnome-settings-daemon
 Version  : 46.0
-Release  : 89
+Release  : 90
 URL      : https://download.gnome.org/sources/gnome-settings-daemon/46/gnome-settings-daemon-46.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-settings-daemon/46/gnome-settings-daemon-46.0.tar.xz
 Summary  : No detailed summary available
