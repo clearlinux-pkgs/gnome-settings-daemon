@@ -1,3 +1,49 @@
+=============
+Version 47.1
+=============
+- meson: Fix project version
+
+=============
+Version 47.0
+=============
+- Translation updates
+
+Power:
+- Only update mutter backlight properties when the mutter
+  backend is in use
+
+=============
+Version 47.rc
+=============
+- Port X11 tests to using Xwayland
+- Translation updates
+
+Power:
+- Set backlight through Mutter APIs, drop gnome-rr
+  dependency
+
+Wwan:
+- Fix memory access errors
+
+Xsettings:
+- Get UI scaling factor from a dedicated Mutter D-Bus API
+
+===============
+Version 47.beta
+===============
+- Translation updates
+
+Housekeeping:
+- Improve string in OOM notifications
+
+Sharing:
+- Stop assigned services only when there is no
+  network connection
+- Fix building without systemd
+
+Printing:
+- Clear members of GsdPrintNotificationsManager
+
 ============
 Version 46.0
 ============
