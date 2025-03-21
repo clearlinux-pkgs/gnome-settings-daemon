@@ -1,3 +1,53 @@
+============
+Version 48.0
+============
+- Translation updates
+- Port plugins to GApplication classes
+
+=============
+Version 48.rc
+=============
+- Translation updates
+- Add schemas for global shortcuts
+- Allow usage as subproject
+
+===============
+Version 48.beta
+===============
+- Translation updates
+- Fix deprecation warnings during build
+
+Media-keys:
+- Allow running custom commands in lock screen
+
+==================
+Version 48.alpha.1
+==================
+- Brown paper bag release
+
+Media keys:
+- Fix crash on startup
+
+================
+Version 48.alpha
+================
+- Translation updates
+- Icon hint improvements to notifications
+
+Media keys:
+- Improve HIG compliance of notification messages
+- Add shortcuts for reboot and shutdown actions
+
+Power:
+- Improve HIG compliance of notification messages
+- Resolve device paths outside of the backlight helper
+
+Usb protection:
+- Improve strings
+
+Xsettings:
+- Do not notify icon-theme property on high-contrast changes
+
 =============
 Version 47.2
 =============
